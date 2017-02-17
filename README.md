@@ -1,10 +1,10 @@
 #Golf Group Generator
 
 1. Initial Setup
-  * Create random list of golfers with handicaps (1-20) for each
+  * ~~Create random list of golfers with handicaps (1-20) for each~~
   * Create groups (3 or 4 people each) based on potential combinations total number of golfers
-  * Create team handicap for each groups
-  * Create list of groups including team handicaps
+  * ~~Create team handicap for each group~~
+  * ~~Create list of groups including team handicaps~~
 
 2. Shuffle groups until minimum team handicap difference is found
   * Track team handicap variance
