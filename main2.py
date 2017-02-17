@@ -60,15 +60,17 @@ groups = [[("",0)]*4 for i in xrange(len(testdata)/4)]
 for i in xrange(4):
     for j in xrange(len(testdata)/4):
         groups[j][i] = testdata[i+(j*4)]
-
+'''
 print team_variance(groups)
 for i in groups:
     print i
 
 print "\n\n\n"
-
+'''
+swap_count = 0
 try_count = 0
-while try_count < 20:
+try_records = []
+while try_count < 50:
     if team_variance(groups) == 0:
         break
     x1 = random.randint(0,2)
@@ -77,12 +79,25 @@ while try_count < 20:
     y2 = random.randint(0,3)
     x = (x1,x2)
     y = (y1,y2)
-    if swap(x,y):
-        try_count = 0
-    else:
-        try_count += 1
-
+    coord_check = (x,y)
+    if (coord_check not in try_records) and x1 != y1:
+        if swap(x,y):
+            try_records = []
+            try_count = 0
+            swap_count += 1
+        else:
+            try_records.append(coord_check)
+            try_count += 1
+'''
+print swap_count
 print try_count
 print team_variance(groups)
+'''
 for i in groups:
-    print i
+    string = "\nTeam Handicap: %0.3f\nTeam members: " % group_handicap(i)
+    for j in xrange(len(i)):
+        string += i[j][0]
+        if j != (len(i) - 1):
+            string += ", "
+    string += "\n\n"
+    print string
