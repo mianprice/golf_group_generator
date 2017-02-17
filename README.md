@@ -1,21 +1,8 @@
 #Golf Group Generator
 
-1. Initial Setup
-  * ~~Create random list of golfers with handicaps (1-20) for each~~
-  * Create groups (3 or 4 people each) based on potential combinations total number of golfers
-  * ~~Create team handicap for each group~~
-  * ~~Create list of groups including team handicaps~~
-
-2. Shuffle groups until minimum team handicap difference is found
-  * Track team handicap variance
-  * Generate all group combinations and only output list of groups with smallest team handicap variance
-
-3. Extras
-  1. Check shuffler efficiency
-    * Can shuffler function be made more efficient?
-    * Can minimum variance be determined from initial set of handicaps?
-  2. Take input
-    * (Command Line, .txt file, or other data formats)
-  3. Output options
-    * Output minimum variance list of groups
-    * Iff multiple possible lists of groups with the same minimum variance, output all options
+1. Takes input (hard-coded currently)
+2. Randomly shuffles input into groups of 4
+3. Uses swap function to try switching people between groups
+  * If swap increases overall variance, the groups stay the same
+  * If swap decrease overall variance, the groups switch to the new form tried by the swap function
+4. Once the program has tried the swap function unsuccessfully 20 times in a row, the program stops and prints the groups.
