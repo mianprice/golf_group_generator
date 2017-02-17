@@ -63,8 +63,9 @@ class GroupList(object):
     def print_self(self):
         print self.printer
 
-
-
+print "Do you have a maximum number of groups?\nEnter the maximum, or 0 for no maximum."
+#max_groups = int(raw_input("#: "))
+max_groups = 0
 
 names = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"]
 
@@ -75,24 +76,44 @@ for i in names:
     golfer_list.append(Golfer(i,handicap))
 
 '''
-Print Golfer List (Use to check the golfer_list generation)
+Print Golfer List
 for i in golfer_list:
     i.print_self()
 '''
+if max_groups < 1:
+    max_groups = 1000000
 
-group_list = GroupList(4)
-
-for i in xrange(len(golfer_list)+1):
-    if i == 0:
-        next_group = []
-    if len(next_group) < 4:
-        next_group.append(golfer_list[i])
+num_golfers = 0
+if len(golfer_list) % 4 == 0:
+    if len(golfer_list) / 4 > max_groups:
+        print "Unfortunately, there are too many golfers to play in foursomes with your maximum number of groups."
     else:
-        if i < len(golfer_list):
-            group_list.add(Group(next_group))
+        num_golfers = 4
+        group_list = GroupList(len(golfer_list)/4)
+elif len(golfer_list) % 3 == 0:
+    if len(golfer_list) / 3 > max_groups:
+        print "Unfortunately, there are too many golfers to play in threesomes with your maximum number of groups."
+    else:
+        num_golfers = 3
+        group_list = GroupList(len(golfer_list)/3)
+
+if num_golfers == 0:
+    print "Sorry, you'll need to change the number of golfers enteres and restart the program."
+else:
+    for i in xrange(len(golfer_list)+1):
+        if i == 0:
             next_group = []
+        if len(next_group) < num_golfers:
             next_group.append(golfer_list[i])
         else:
-            group_list.add(Group(next_group))
+            if i < len(golfer_list):
+                group_list.add(Group(next_group))
+                next_group = []
+                next_group.append(golfer_list[i])
+            else:
+                group_list.add(Group(next_group))
 
-group_list.print_self()
+    '''
+    Print Group List
+    group_list.print_self()
+    '''
