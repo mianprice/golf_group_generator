@@ -70,6 +70,8 @@ print "\n\n\n"
 swap_count = 0
 try_count = 0
 try_records = []
+total_tries = 0
+tries_per_swap = []
 while try_count < 50:
     if team_variance(groups) == 0:
         break
@@ -82,12 +84,16 @@ while try_count < 50:
     coord_check = (x,y)
     if (coord_check not in try_records) and x1 != y1:
         if swap(x,y):
+            tries_per_swap.append(len(try_records))
             try_records = []
+            total_tries += try_count
             try_count = 0
             swap_count += 1
         else:
             try_records.append(coord_check)
             try_count += 1
+total_tries += try_count
+tries_per_swap.append(len(try_records))
 '''
 print swap_count
 print try_count
@@ -101,3 +107,10 @@ for i in groups:
             string += ", "
     string += "\n\n"
     print string
+
+string_tries = ""
+for i in xrange(len(tries_per_swap)):
+    string_tries += "Swap: %d || Tries: %d\n" % (i+1, tries_per_swap[i])
+
+analysisString = "Total Tries: %d\nTotal Swaps: %d\n" % (total_tries, swap_count)
+print analysisString + string_tries
