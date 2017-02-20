@@ -70,14 +70,12 @@ def input_parse(s):
     parsed.append(next_tuple)
     return parsed
 
-# g_input = sys.argv[1]
-g_input = '123456,3:987654,17:3456,8:9876,7:4567,7:987643,14:23457857,2:0327403270,10:81739179,15:2163812763,3:8312963,6:028193710,8:382179,14:381721987,14:32890179,16:3278917,9'
+g_input = sys.argv[1]
+# g_input = '123456,3:987654,17:3456,8:9876,7:4567,7:987643,14:23457857,2:0327403270,10:81739179,15:2163812763,3:8312963,6:028193710,8:382179,14:381721987,14:32890179,16:3278917,9'
 parsed_input = input_parse(g_input)
-print parsed_input
-parsed_input = sorted(parsed_input, key=lambda x:x[1])
-print parsed_input
+# print str(parsed_input) + "\n"
 
-exit(0)
+
 
 # testdata = [
 # ("Mitzel",7),
@@ -107,6 +105,8 @@ for i in xrange(4):
     for j in xrange(len(parsed_input)/4):
         groups[j][i] = parsed_input[i+(j*4)]
 
+input_groups = groups
+
 # print str(groups) + "\n"
 
 
@@ -116,17 +116,18 @@ for i in xrange(4):
 
 # print "\n\n\n"
 
-# swap_count = 0
+loop_count = 0
+swap_count = 0
 try_count = 0
 try_records = []
-# total_tries = 0
-# tries_per_swap = []
+total_tries = 0
+tries_per_swap = []
 num_groups = len(groups)
 num_members = len(groups[0])
-max_loops = num_groups * num_members * ()
-while try_count < 50:
+while try_count < 50 and loop_count<32000:
     if team_variance(groups) == 0:
         break
+    loop_count += 1
     x1 = random.randint(0,num_groups - 1)
     x2 = random.randint(0,num_members - 1)
     y1 = random.randint(0,num_groups - 1)
@@ -136,19 +137,17 @@ while try_count < 50:
     coord_check = (x,y)
     if (coord_check not in try_records) and x1 != y1 and groups[x[0]][x[1]] != groups[y[0]][y[1]] and not (groups[x[0]][x[1]] > groups[y[0]][y[1]]  and group_handicap(groups[x[0]]) < group_handicap(groups[y[0]])):
         if swap(x,y):
-            # tries_per_swap.append(len(try_records))
+            tries_per_swap.append(len(try_records))
             try_records = []
-            # total_tries += try_count
+            total_tries += try_count
             try_count = 0
-            # swap_count += 1
+            swap_count += 1
         else:
             try_records.append(coord_check)
             try_count += 1
-    else:
-        try_records.append(coord_check)
 
-# total_tries += try_count
-# tries_per_swap.append(len(try_records))
+total_tries += try_count
+tries_per_swap.append(len(try_records))
 # print swap_count
 # print try_count
 # print team_variance(groups)
@@ -156,6 +155,17 @@ while try_count < 50:
 
 
 # PRINT STRING OUTPUT  (FOR PRINTING TO STANDARD OUTPUT)
+# input_strings = ""
+# for i in input_groups:
+#     string = "\nTeam Handicap: %.0f\nTeam members: " % group_handicap(i)
+#     for j in xrange(len(i)):
+#         string += i[j][0]
+#         if j != (len(i) - 1):
+#             string += ", "
+#     string += "\n\n"
+#     input_strings += string
+# print input_strings
+#
 # group_strings = ""
 # for i in groups:
 #     string = "\nTeam Handicap: %.0f\nTeam members: " % group_handicap(i)
@@ -166,15 +176,15 @@ while try_count < 50:
 #     string += "\n\n"
 #     group_strings += string
 # print group_strings
-
+#
 # string_tries = ""
 # for i in xrange(len(tries_per_swap)):
 #     string_tries += "Swap: %d || Tries: %d\n" % (i+1, tries_per_swap[i])
 #
 # analysisString = "Total Tries: %d\nTotal Swaps: %d\n" % (total_tries, swap_count)
 # print analysisString + string_tries
-
-# sys.exit(group_strings + analysisString + string_tries)
+#
+# sys.exit(input_strings + analysisString + string_tries + group_strings)
 
 # Print output for PHP to handle
 
