@@ -52,15 +52,13 @@ def input_parse(s):
     while len(s_list) > 0:
         next_char = s_list.pop(0)
         if next_char == ",":
-            if s_list[0] == ",":
-                s_list.pop(0)
-                next_tuple = (next_id,int(next_hcp))
-                parsed.append(next_tuple)
-                next_hcp = ""
-                next_id = ""
-                id_found = False
-            else:
-                id_found = True
+            id_found = True
+        elif next_char == ":":
+            next_tuple = (next_id,int(next_hcp))
+            parsed.append(next_tuple)
+            next_hcp = ""
+            next_id = ""
+            id_found = False
         elif next_char in letters:
             next_id += next_char
         elif next_char in numbers:
@@ -68,10 +66,12 @@ def input_parse(s):
                 next_hcp += next_char
             else:
                 next_id += next_char
+    next_tuple = (next_id,int(next_hcp))
+    parsed.append(next_tuple)
     return parsed
 
 g_input = sys.argv[1]
-# g_input = '123456,3,,987654,17,,3456,8,,9876,7,,4567,7,,987643,14,,23457857,2,,0327403270,10,,81739179,15,,2163812763,3,,8312963,6,,028193710,8,,382179,14,,381721987,14,,32890179,16,,3278917,9,,'
+# g_input = '123456,3:987654,17:3456,8:9876,7:4567,7:987643,14:23457857,2:0327403270,10:81739179,15:2163812763,3:8312963,6:028193710,8:382179,14:381721987,14:32890179,16:3278917,9'
 parsed_input = input_parse(g_input)
 # print str(parsed_input) + "\n"
 
@@ -176,7 +176,7 @@ while try_count < 50:
 output_string = ""
 for i in xrange(len(groups)):
     if i != 0:
-        output_string += ",,"
+        output_string += ":"
     for j in xrange(len(groups[i])):
         output_string += groups[i][j][0]
         if j != len(groups[i]) - 1:
