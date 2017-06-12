@@ -71,34 +71,7 @@ def input_parse(s):
     return parsed
 
 g_input = sys.argv[1]
-# g_input = '123456,3:987654,17:3456,8:9876,7:4567,7:987643,14:23457857,2:0327403270,10:81739179,15:2163812763,3:8312963,6:028193710,8:382179,14:381721987,14:32890179,16:3278917,9'
 parsed_input = input_parse(g_input)
-# print str(parsed_input) + "\n"
-
-
-
-# testdata = [
-# ("Mitzel",7),
-# ("Hollenstein",10),
-# ("Seese",13),
-# ("Hajduk",12),
-# ("Gallagher",8),
-# ("Lake",9),
-# ("Klimko",14),
-# ("Singer",12),
-# ("Crane",7),
-# ("Lavinsky",9),
-# ("Holmes",12),
-# ("Stewart",15)
-# ]
-
-# random.shuffle(testdata)
-
-# groups = [[("",0)]*4 for i in xrange(len(testdata)/4)]
-# for i in xrange(4):
-#     for j in xrange(len(testdata)/4):
-#         groups[j][i] = testdata[i+(j*4)]
-
 
 groups = [[("",0)]*4 for i in xrange(len(parsed_input)/4)]
 for i in xrange(4):
@@ -106,15 +79,6 @@ for i in xrange(4):
         groups[j][i] = parsed_input[i+(j*4)]
 
 input_groups = groups
-
-# print str(groups) + "\n"
-
-
-# print team_variance(groups)
-# for i in groups:
-    # print i
-
-# print "\n\n\n"
 
 loop_count = 0
 swap_count = 0
@@ -148,45 +112,6 @@ while try_count < 50 and loop_count<32000:
 
 total_tries += try_count
 tries_per_swap.append(len(try_records))
-# print swap_count
-# print try_count
-# print team_variance(groups)
-
-
-
-# PRINT STRING OUTPUT  (FOR PRINTING TO STANDARD OUTPUT)
-# input_strings = ""
-# for i in input_groups:
-#     string = "\nTeam Handicap: %.0f\nTeam members: " % group_handicap(i)
-#     for j in xrange(len(i)):
-#         string += i[j][0]
-#         if j != (len(i) - 1):
-#             string += ", "
-#     string += "\n\n"
-#     input_strings += string
-# print input_strings
-#
-# group_strings = ""
-# for i in groups:
-#     string = "\nTeam Handicap: %.0f\nTeam members: " % group_handicap(i)
-#     for j in xrange(len(i)):
-#         string += i[j][0]
-#         if j != (len(i) - 1):
-#             string += ", "
-#     string += "\n\n"
-#     group_strings += string
-# print group_strings
-#
-# string_tries = ""
-# for i in xrange(len(tries_per_swap)):
-#     string_tries += "Swap: %d || Tries: %d\n" % (i+1, tries_per_swap[i])
-#
-# analysisString = "Total Tries: %d\nTotal Swaps: %d\n" % (total_tries, swap_count)
-# print analysisString + string_tries
-#
-# sys.exit(input_strings + analysisString + string_tries + group_strings)
-
-# Print output for PHP to handle
 
 output_string = ""
 for i in xrange(len(groups)):
